@@ -22,7 +22,7 @@ To make things a little more conrete, here's a code sample of how Blunder implem
 indexed by the attacker counter for each side:
 
 
-```
+```Go
 var KingAttackTable [100]int16 = [100]int16{
 	0, 0, 1, 2, 4, 6, 9, 12, 16, 20, 25, 30, 36,
 	42, 49, 56, 64, 72, 81, 90, 100, 110, 121, 132,
@@ -39,28 +39,28 @@ var KingAttackTable [100]int16 = [100]int16{
 
 Next, each piece on the board is evaluated, excluding the king, since the king safety calculations depend on evaluating all other pieces first:
 
-```
+```Go
 phase := TotalPhase
 allBB := pos.SideBB[pos.SideToMove] | pos.SideBB[pos.SideToMove^1]
 
 for allBB != 0 {
-		sq := allBB.PopBit()
-		piece := pos.Squares[sq]
+    sq := allBB.PopBit()
+    piece := pos.Squares[sq]
 
-		switch piece.Type {
-		case Pawn:
-			evalPawn(pos, piece.Color, sq, &eval)
-		case Knight:
-			evalKnight(pos, piece.Color, sq, &eval)
-		case Bishop:
-			evalBishop(pos, piece.Color, sq, &eval)
-		case Rook:
-			evalRook(pos, piece.Color, sq, &eval)
-		case Queen:
-			evalQueen(pos, piece.Color, sq, &eval)
-		}
-
-		phase -= PhaseValues[piece.Type]
+    switch piece.Type {
+        case Pawn:
+	    evalPawn(pos, piece.Color, sq, &eval)
+	case Knight:
+		evalKnight(pos, piece.Color, sq, &eval)
+	case Bishop:
+		evalBishop(pos, piece.Color, sq, &eval)
+	case Rook:
+		evalRook(pos, piece.Color, sq, &eval)
+	case Queen:
+		evalQueen(pos, piece.Color, sq, &eval)
+    }
+    
+    phase -= PhaseValues[piece.Type]
 }
 ```
 
@@ -68,7 +68,7 @@ Each piece's mobility is evaluated, and conviently, the information used to eval
 they attack in the enemy king's "zone" is counted, and a different point bonus is given for each square, depending on the piece type. The king zone I use are the 16 outer
 squares around the king, and the 8 inner squares. Here's an example of how knight attacks are evaluated:
 
-```
+```Go
 usBB := pos.SideBB[color]
 moves := KnightMoves[sq] & ^usBB
 ...
@@ -76,9 +76,9 @@ outerRingAttacks := moves & eval.KingZones[color^1].OuterRing
 innerRingAttacks := moves & eval.KingZones[color^1].InnerRing
 
 if outerRingAttacks != 0 || innerRingAttacks != 0 {
-		eval.KingAttackers[color]++
-		eval.KingAttackPoints[color] += uint16(outerRingAttacks.CountBits()) * uint16(MinorAttackOuterRing)
-		eval.KingAttackPoints[color] += uint16(innerRingAttacks.CountBits()) * uint16(MinorAttackInnerRing)
+	eval.KingAttackers[color]++
+	eval.KingAttackPoints[color] += uint16(outerRingAttacks.CountBits()) * uint16(MinorAttackOuterRing)
+	eval.KingAttackPoints[color] += uint16(innerRingAttacks.CountBits()) * uint16(MinorAttackInnerRing)
 }
 ```
 
@@ -88,7 +88,7 @@ The constants `MinorAttackOuterRing` and `MinorAttackInnerRing` are the point va
 Once all of the attack information is collected, it's combined with information about open files near the king, as well as what I mentioned above concering the king's position.
 And finally the points are used to index the table I showed, and this value is the penalty given to the sides king being evaluated:
 
-```
+```Go
 // Evaluate the score of a king.
 func evalKing(pos *Position, color, sq uint8, eval *Eval) {
 	eval.MGScores[color] += PSQT_MG[King][FlipSq[color][sq]]
