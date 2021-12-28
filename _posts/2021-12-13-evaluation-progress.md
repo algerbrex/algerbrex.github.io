@@ -1,12 +1,12 @@
 ## Evaluation Progress
 
 In the previous blog post I mentioned how I had been tinkering with the evaluation to try to keep Blunder agressive while also making the evaluation more sound. 
-One idea I decided to try to implement this was using a table to initalize the safety counter for each king.If that doesn't make much sense, let me explain a little. 
+One idea I decided to try to implement was a table to initalize the safety counter for each king. If that doesn't make much sense, let me explain a little. 
 
 The way Blunder does king safety currently is an approach used in many, many engines. But before I explain the approach, it's important to think about how king safety 
 ought to be scored in the first place.
 
-Unlike other evaluations features, king safety is a bit weird and fickle. For example, if all you have is a lone queen hovering around your opponets queen, you really 
+Unlike other evaluations features, king safety is a bit weird and fickle. For example, if all you have is a lone queen hovering around your opponets king, you really 
 don't have much of an attack, and may in fact be opening yourself up to an attack. However, if you slowly build up pressure around your opponets king by bringing your 
 queen and supporting it with your other pieces, things become much more dangerous for your opponet, and he better make sure he's able to adequately defend his king.
 
@@ -15,8 +15,8 @@ details of each king's safety - does the enemy have a queen? Are there several p
 many squares does each attacking piece cover? Each of these features by themselves might be worth 2 points, or 5 points, or 3 points.
 
 This counter is then used as an index into a pre-computed table of non-linear king safety scores. This way, we can capture the idea of gradually building up an attack. For
-example, while a queen attacking the area around a king might only be 5 points and only get a score of, say, 8 centipawn, if there are two open files near the king, and a 
-knight and rook are also putting pressure around the king, we might have 35 points and the score might jump to 108 centi-pawn!
+example, while a queen attacking the area around a king might only be 5 points and only get a score of, say, 10 centipawn, if there are two open files near the king, and a 
+knight and rook are also putting pressure around the king, we might have 35 points and the score might jump to 100 centi-pawn!
 
 To make things a little more conrete, here's a code sample of how Blunder implements king safety. Below is the non-linear attack table which will later be
 indexed by the attacker counter for each side:
@@ -125,7 +125,7 @@ func evalKing(pos *Position, color, sq uint8, eval *Eval) {
 ```
 
 One last important detail to mention is that if you look closely at the above code, you'll see the king safety is only considered for the middlegame, and only when the
-attacking side has at least two attacks and queen. This helps Blunder better understand that a king isn't necessarily unsafe in the endgame if its exposed, and that there's
+attacking side has at least two attackers and a queen. This helps Blunder better understand that a king isn't necessarily unsafe in the endgame if its exposed, and that there's
 usually not much to an attack without a queen or a good amount of attackers.
 
 Overall, Blunder's king safety is getting better, and it looks like its starting to do a decent job at recognizing when it has an opportunity to exploit its opponets 
