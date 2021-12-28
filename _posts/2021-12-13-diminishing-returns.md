@@ -10,11 +10,11 @@ The three main ideas that have stuck were Knight outposts, dynamic time control 
 
 As for re-tuning the evaluation parameters, although it technically did improve Blunder (gaining 20+ Elo), I'm still not sure what to make of the changes. For the re-tuning, I opted to try diminishing the value of a pawn, and ramping up the piece value. I also decied to allow the king safety to be more granular. 
 
-On the one hand, the chess Blunder plays now seems to be much better, and more agressive, in many cases. I've seen it play multiple games verus other engines with little to no king safety, where it will ruthelessly hunt the king down and either trade into a winning endgame, or deliver a flashy checkmate. [Here](https://www.chess.com/analysis/game/pgn/3w7YxzQRxS).
+On the one hand, the chess Blunder plays now seems to be much better, and more agressive, in many cases. I've seen it play multiple games verus other engines with little to no king safety, where it will ruthelessly hunt the king down and either trade into a winning endgame, or deliver a flashy checkmate. [For example](https://www.chess.com/analysis/game/pgn/3w7YxzQRxS), here's an example of a game between this version of Blunder and Blunder 5.0.0.
 
 However, in some others cases I observed, the current evaluation would cause the engine to blunder quite badly, and in some openings, it would completly break down. Not to mention the evaluation is quite a bit more jumpy in its ranges than before, which I've always taken to be a not-so-great sign.
 
-So at the moment I'm a bit torn. I'm quite fond of the way re-tuning the evaluation has changed Blunder's personality - I've always wanted a strong tactical, agressive engine that would be more than happy to take the intiative to its opponet - and from testing the new evaluation does seem to be stronger, but asthetically, the chess it plays can look pretty bad sometimes, especially in sharp, imbalenced endgames (e.g. Queen and pawns vs pawns, knight, and rook). 
+So at the moment I'm a bit torn. I'm quite fond of the way re-tuning the evaluation has changed Blunder's personality - I've always wanted a strong tactical, agressive engine that would be more than happy to take the intiative to its opponet - and from testing the new evaluation does seem to be stronger, but asthetically, the chess it plays can look pretty bad sometimes, especially in sharp, imbalenced endgames (e.g. queen vs knight and rook). 
 
 Right now I'm leaning towards re-verting the changes, as I belive there are other valid considerations when creating a chess engine besides the maximum amount of Elo possible, and not to mention the change wasn't a huge jump in play strength, so I wouldn't be giving up much. 
 
