@@ -1,7 +1,7 @@
 Going For The Super GM Title
 ------------------------
 
-Per usualy, progress has been slow on Blunder, but it's come along here and there. The current goal, as the title suggest,
+Per usual, progress has been slow on Blunder, but it's come along here and there. The current goal, as the title suggest,
 is to get Blunder to be playing around 2700-2800, or the level of a what's informally known as a super grandmaster, 
 such as Ding Liren, or Ian Nepomniachtchi. Currently Blunder 8.0.0 has not been tested throughly, but I estimate it's rating 
 to fall close to 2700 on the CCRL 4/40 rating list, probably something like 2670, so not too much needed to break 2700 - hopefully.
@@ -13,15 +13,15 @@ results speak for themselves: Against a small gauntlant Blunder gained roughly 3
 
 The first step to generating the games was to actual retrieve them from the trash - or more precisely the recycling bin. I had
 fiddled with self-play evaluation tuning in the past and failed miserable, so for now I was just deleting the games.pgn files,
-as I used them as a form of redundancy in case a test finished during the day but my somehow crashed or restarted. I had to
-write a small Python script to go through the recycling bin, restore a single games.pgn file, rename it to games_N.pgn, where
-N was a running counter used to prevent name conflicts, and then store it in a new folder.
+as I used them as a form of redundancy in case a test finished during the day but my computer somehow crashed or restarted. I could run
+the pgn file through [ordo](https://github.com/michiguel/Ordo) to retrieve the Elo gain. So I had towrite a small Python script to go through the recycling bin, restore a 
+single games.pgn file, rename it to games_N.pgn, where N was a running counter used to prevent name conflicts, and then store it in a new folder.
 
-Afterwards I went and cleaned my PGN parser, which utilized Go's regex library, and refactored my FEN generartion code. The biggest
+Afterwards I went and cleaned up my PGN parser, which utilized Go's regex library, and refactored my FEN generartion code. The biggest
 change I made was selecting, at most, 10 random FENs from each game, and discarding the rest. I believe this was the biggest contributor
 towards making this self-play tuning much more succesful than past versions, as the positions has much better variety. I also made
 sure to exclude positions where the side to move was in check, the position was likely from the opening book, the position was near the
-very end of the game or likely part of a boring, or positions from games which were less than 20 full-moves. Thanks to the author of Velvet,
+very end of the game or likely part of a boring draw, or positions from games which were less than 20 full-moves. Thanks to the author of Velvet,
 Martin Honert, for giving me the idea to try being more strict with my FEN selection, from skimming through his Python FEN generation script.
 Otherwise, here's the relevant code:
 
