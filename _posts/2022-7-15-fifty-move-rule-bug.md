@@ -2,7 +2,7 @@ During a game I was running between Blunder and Zahak, I noticed Blunder played 
 
 ![1r2n3/4PB2/4P3/p3B3/P1p3k1/2P4p/1P6/7K b - - 68 105](media/blunder.PNG)
 
-Blunder chose the move Rxd2, which of course loses on the spot. After a couple of spite checks, Zahak just moved its bishop, cashed in its
+Blunder chose the move Rxb2, which of course loses on the spot. After a couple of spite checks, Zahak just moved its bishop, cashed in its
 passed pawn for a queen, and checkmated Blunder in short order.
 
 I immediately started investigating why Blunder chose to make such a poor move, and eventually discovered a rather embaressing oversight in my move making
