@@ -7,7 +7,7 @@ Here Blunder was pittied against a slate of many other very strong engines, incl
 [Gandalf](https://www.chessprogramming.org/Gandalf), an older commerical chess engine.
 
 After a hard fought battle for first, Blunder managed to come out on top and win its first tournament! Scoring 2.5 points ahead of CM9000
-and Gandalf, the runner up:
+and Gandalf, the runners up:
 
 ```
 27.5 - Blunder 8.0.0 64-bit
