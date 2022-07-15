@@ -1,6 +1,6 @@
 During a game I was running between Blunder and Zahak, I noticed Blunder played a very odd move that lost the game instantly. In the position:
 
-![1r2n3/4PB2/4P3/p3B3/P1p3k1/2P4p/1P6/7K b - - 68 105](media/blunder.PNG)
+![1r2n3/4PB2/4P3/p3B3/P1p3k1/2P4p/1P6/7K b - - 68 105](https://raw.githubusercontent.com/algerbrex/algerbrex.github.io/main/_posts/media/blunder.PNG)
 
 Blunder chose the move Rxb2, which of course loses on the spot. After a couple of spite checks, Zahak just moved its bishop, cashed in its
 passed pawn for a queen, and checkmated Blunder in short order.
